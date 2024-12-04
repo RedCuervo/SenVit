@@ -29,6 +29,10 @@ const SenVitConnection=()=>{
                     position="absolute"
                     left={5}
                     zIndex={1}
+                    w={10}
+                    h={10}
+                    justifyContent={"center"}
+                    alignItems={"center"}
                     >
                     <ArrowBackIcon color="black" size="md"/>
                 </Pressable>
