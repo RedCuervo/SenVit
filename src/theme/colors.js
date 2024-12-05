@@ -1,4 +1,7 @@
-const CustomColors = {
+import { extendTheme } from "native-base";
+
+const customTheme = extendTheme({
+  colors:{
     GunmetalDark: {
       hex: "#17232a",
       rgb: "rgb(23, 35, 42)",
@@ -34,5 +37,90 @@ const CustomColors = {
       g: 77,
       b: 85,
     },
-  };
-export default CustomColors;  
+    DarkBackground: {
+      hex: "#1c1c1c",
+      rgb: "rgb(28, 28, 28)",
+      r: 28,
+      g: 28,
+      b: 28,
+    },
+    LightBackground:{
+      hex: "#f0f0f0",
+      rgb: "rgb(240, 240, 240)",
+      r: 240,
+      g: 240,
+      b: 240,
+    },
+    DarkText: {
+      hex: "#1c1c1c",
+      rgb: "rgb(28, 28, 28)",
+      r: 28,
+      g: 28,
+      b: 28,
+    },
+    LightText: {
+      hex: "#f0f0f0",
+      rgb: "rgb(240, 240, 240)",
+      r: 240,
+      g: 240,
+      b: 240,
+    },
+    Primary: {
+      hex: "#0d6efd",
+      rgb: "rgb(13, 110, 253)",
+      r: 13,
+      g: 110,
+      b: 253,
+    },
+    Secondary: {
+      hex: "#6c757d",
+      rgb: "rgb(108, 117, 125)",
+      r: 108,
+      g: 117,
+      b: 125,
+    },
+    Success: {
+      hex: "#198754",
+      rgb: "rgb(25, 135, 84)",
+      r: 25,
+      g: 135,
+      b: 84,
+    },
+    Danger: {
+      hex: "#dc3545",
+      rgb: "rgb(220, 53, 69)",
+      r: 220,
+      g: 53,
+      b: 69,
+    },
+    Warning: {
+      hex: "#ffc107",
+      rgb: "rgb(255, 193, 7)",
+      r: 255,
+      g: 193,
+      b: 7,
+    },
+    Info: {
+      hex: "#0dcaf0",
+      rgb: "rgb(13, 202, 240)",
+      r: 13,
+      g: 202,
+      b: 240,
+    },
+    Light: {
+      hex: "#f8f9fa",
+      rgb: "rgb(248, 249, 250)",
+      r: 248,
+      g: 249,
+      b: 250,
+    },
+    Dark: {
+      hex: "#212529",
+      rgb: "rgb(33, 37, 41)",
+      r: 33,
+      g: 37,
+      b: 41,
+    },
+  },
+  });
+export default customTheme;  

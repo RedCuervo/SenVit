@@ -1,5 +1,9 @@
 import React from 'react';
 import * as nativebase from 'native-base';
+import customTheme from '../theme/colors';
+
+
+
 
 
 const MenuItem = ({ text, fontSize = 'md', color, fontWeight, onPress }) => (
@@ -30,7 +34,7 @@ const MenuSection = ({ children, spacing = 4 }) => (
 );
 
 const MoreScreen = ({navigation})=>{
-
+    const {colorMode}=nativebase.useColorMode();
     const menuItems = [
         { 
             text: 'Emergency Contacts', 
@@ -58,7 +62,7 @@ const MoreScreen = ({navigation})=>{
         }
     ];
     return(
-        <nativebase.Box w={"100%"} flex={1} m={0} bg={"white"}>
+        <nativebase.Box w={"100%"} flex={1} m={0} bg={colorMode=='light'? 'LightBackground.hex':'DarkBackground.hex'}>
             <nativebase.HStack
             alignItems="center"
             justifyContent="center"
@@ -91,10 +95,11 @@ const MoreScreen = ({navigation})=>{
                         text="Profile" 
                         fontSize="xl" 
                         onPress={() => navigation.navigate('Profile')}
+                        color={colorMode==='light'? 'Charcoal.hex':'White.hex'}
                     />
                     <MenuItem 
                         text="Edit profile" 
-                        color="muted.500" 
+                        color={colorMode ==='light'? 'muted.400':'light.300'} 
                         onPress={() => navigation.navigate('EditProfile')}
                     />
                 </nativebase.Box>
@@ -107,14 +112,14 @@ const MoreScreen = ({navigation})=>{
                         text="My Device" 
                         fontSize="lg" 
                         fontWeight="bold"
-                        onPress={() => navigation.navigate('Device')}
+                        color={colorMode==='light'? 'Charcoal.hex':'White.hex'}
                     />
                     {menuItems.map((item, index) => (
                         <MenuItem 
                             key={index} 
                             text={item.text}
                             fontSize='sm'
-                            color={"muted.500"}
+                            color={colorMode==='light'? 'muted.500':'Seasalt.hex'}
                             onPress={() => navigation.navigate(item.screen)}
                         />
                     ))}
@@ -125,14 +130,14 @@ const MoreScreen = ({navigation})=>{
                     <MenuItem
                     text="Terms&Conditions"
                     fontSize="sm"
-                    color={"muted.500"}
-                    onPress={()=>navigation.navigate('Terms&Conditions')}
+                    color={colorMode==='light'? 'muted.500':'Seasalt.hex'}
+                    onPress={()=>navigation.navigate('TermsAndConditions')}
                     />
 
                     <MenuItem
                     text="Privacy Policy"
                     fontSize="sm"
-                    color={"muted.500"}
+                    color={colorMode==='light'? 'muted.500':'Seasalt.hex'}
                     onPress={()=>navigation.navigate('PrivacyPolicy')}
                     />
                 </MenuSection>
