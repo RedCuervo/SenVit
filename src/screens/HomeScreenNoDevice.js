@@ -1,14 +1,16 @@
 import React from 'react';
 import * as nativebase from 'native-base';
 import customTheme from '../theme/colors';
+import { useProfile } from '../context/ProfileContext';
 
 
 const colors = customTheme.colors;
-const HomeScreenNoDevice = ({route,navigation})=>{
-    const {username}=route.params;
+const HomeScreenNoDevice = ({navigation})=>{
+    
     const backgroundColor= nativebase.useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
     const textColor= nativebase.useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
     const {colorMode}=nativebase.useColorMode();
+    const {profileData}=useProfile();
     return(
         <nativebase.Box w={"100%"} flex={1} m={0} bg={backgroundColor}>
             <nativebase.HStack
@@ -39,7 +41,8 @@ const HomeScreenNoDevice = ({route,navigation})=>{
                 >
                     <nativebase.Text fontWeight={"bold"}
                     color={textColor}
-                    >Welcome {username}</nativebase.Text>
+                    >Welcome {profileData.name.split(" ")[0]}</nativebase.Text>
+
                 </nativebase.Box>
                 <nativebase.Pressable onPress={()=>navigation.navigate('MoreScreen')}
                     position={"relative"}
