@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as nativebase from 'native-base';
+
 import customTheme from '../theme/colors';
 import Communications from 'react-native-communications';
 import ContactForm from '../modules/ContactForm';
@@ -14,11 +15,14 @@ const EmergencyContacts = ({ navigation }) => {
     const {colorMode}=nativebase.useColorMode();
 
     const createContact = (text, color, number, initials) => ({
+
         imageUrl: require('../../assets/avatarImages/Avatar1.png'),
         text,
         Initials: initials,
         fontSize: 'md',
+
         color:color,
+
         number,
         onPress: () => CallAlert(number, text)
     });
@@ -45,6 +49,7 @@ const EmergencyContacts = ({ navigation }) => {
     };
     return (
         <nativebase.Box w={"100%"} flex={1} m={0} bg={backgroundColor}>
+
             {/*este stack es el boton de back y el titulo de la pantalla(opcional)*/}
             <nativebase.HStack
                 alignItems="center"
@@ -81,13 +86,17 @@ const EmergencyContacts = ({ navigation }) => {
                         />
                     ))}
                 </ContactSection>
+
                 <nativebase.Pressable alignSelf={"center"} bg={colorMode==='light'?'GunmetalLight.hex':'Charcoal.hex'}
+
                     p={2}
                     rounded={10}
                     onPress={() => setShowForm(true)}
                 >
                     <nativebase.Text
+
                         color={colorMode==='light'?'White.hex':'White.hex'}
+
                     >Añadir contacto</nativebase.Text>
                 </nativebase.Pressable>
             </nativebase.VStack>
@@ -137,6 +146,7 @@ const EmergencyContacts = ({ navigation }) => {
         </nativebase.Box>
     );
 }
+
 
 const ContactSection = ({ children, spacing = 4 }) => (
     <nativebase.VStack
@@ -189,5 +199,6 @@ const ContactItem = ({ imageUrl, text, Initials, fontSize = "md", color, onPress
         </nativebase.HStack>
     )
 }
+
 
 export default EmergencyContacts;

@@ -6,22 +6,29 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useState } from 'react';
 import { useColorModeValue } from 'native-base';
 
+
 import HomeScreenNoDevice from './src/screens/HomeScreenNoDevice';
 import FirstTimeScreen from './src/screens/FirstTimeScreen';
 import ConnectionScreen from './src/screens/ConnectionScreen';
 import MoreScreen from './src/screens/MoreScreen';
 import EmergencyContacts from './src/screens/EmergencyContacts';
+import ProfileScreen from './src/screens/ProfileScreen';
+import EditProfileScreen from './src/screens/EditProfileScreen';
 import Settings from './src/screens/Settings';
 import customTheme from './src/theme/colors';
 import About from './src/screens/About';
 import TermsAndConditions from './src/screens/TermsAndConditions';
 import PrivacyPolicy from './src/screens/PrivacyPolicy';
 import Notifications from './src/screens/Notifications';
+
 const Stack = createStackNavigator();
 
 const colors=customTheme.colors;
 const App = () => {
+
+
   const backgroundColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
+
   const [mockUserData]=useState({
     username:"Pedro Pascal",
   })
@@ -38,6 +45,8 @@ const App = () => {
           <Stack.Screen name="ConnectionScreen" component={ConnectionScreen} options={{headerShown: false}}/>
           <Stack.Screen name="MoreScreen" component={MoreScreen} options={{headerShown: false}}/>
           <Stack.Screen name="EmergencyContacts" component={EmergencyContacts} options={{headerShown: false}}/>
+          <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>
           <Stack.Screen name="About" component={About} options={{headerShown: false}}/>
           <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} options={{headerShown: false}}/>
