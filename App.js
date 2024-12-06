@@ -6,11 +6,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useState } from 'react';
 import { useColorModeValue } from 'native-base';
 
+
 import HomeScreenNoDevice from './src/screens/HomeScreenNoDevice';
 import FirstTimeScreen from './src/screens/FirstTimeScreen';
 import ConnectionScreen from './src/screens/ConnectionScreen';
 import MoreScreen from './src/screens/MoreScreen';
 import EmergencyContacts from './src/screens/EmergencyContacts';
+import ProfileScreen from './src/screens/ProfileScreen';
+import EditProfileScreen from './src/screens/EditProfileScreen';
 import Settings from './src/screens/Settings';
 import customTheme from './src/theme/colors';
 import About from './src/screens/About';
@@ -23,13 +26,16 @@ import ExitScreen from './src/screens/Exit';
 import ProfileScreen from './src/screens/ProfileScreen';
 import EditProfileScreen from './src/screens/EditProfileScreen';
 import { ProfileProvider } from './src/context/ProfileContext';
+
 const Stack = createStackNavigator();
 
 const colors=customTheme.colors;
 const App = () => {
+
+
   const backgroundColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
 
-  
+
   return (
     <View style={styles.container}>
       <NativeBaseProvider theme={customTheme}>

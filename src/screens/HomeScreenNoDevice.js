@@ -1,5 +1,6 @@
 import React from 'react';
 import * as nativebase from 'native-base';
+
 import customTheme from '../theme/colors';
 import { useProfile } from '../context/ProfileContext';
 import HeaderMain from '../modules/HeaderMain';
@@ -13,6 +14,7 @@ const HomeScreenNoDevice = ({navigation})=>{
     const {profileData}=useProfile();
     return(
         <nativebase.Box w={"100%"} flex={1} m={0} bg={backgroundColor}>
+
             <HeaderMain navigation={navigation}/>
             <nativebase.Center 
             safeAreaY="10"
@@ -28,7 +30,9 @@ const HomeScreenNoDevice = ({navigation})=>{
                     alt="broken chain link"
                     size={"md"}
                     m={10}
+
                     tintColor={colorMode==='light'? 'Charcoal.hex':'Seasalt.hex'}
+
                     />
                     <nativebase.Text fontSize={"sm"}>It seems you don't have a device connected</nativebase.Text>
                     </nativebase.Box>
@@ -37,7 +41,9 @@ const HomeScreenNoDevice = ({navigation})=>{
                         <nativebase.Pressable
                         onPress={()=>navigation.navigate('ConnectionScreen')}
                         p={5}
+
                         background={colorMode==='light'? 'Charcoal.hex':'Seasalt.hex'}
+
                         borderRadius={65}
                         m={5}
                         >
@@ -45,7 +51,9 @@ const HomeScreenNoDevice = ({navigation})=>{
                             source={require('../../assets/images/plug-connection.png')}
                             alt='connect'
                             size={"md"}
+
                             tintColor={colorMode=== 'light'? 'White.hex':'black'}
+
                             />
                         </nativebase.Pressable>
                         <nativebase.Text>Connect Now!!</nativebase.Text>

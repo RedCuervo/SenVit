@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as nativebase from 'native-base';
@@ -168,5 +169,4 @@ const EditProfileScreen = () => {
     </nativebase.Box>
   );
 };
-
 export default EditProfileScreen;
