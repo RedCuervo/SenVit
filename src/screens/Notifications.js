@@ -6,8 +6,9 @@ import { useColorModeValue } from 'native-base';
 import {Ionicons} from '@expo/vector-icons';
 
 const Notifications = ({ navigation }) => {
-  const colors = CustomColors.colors;
-  const backgroundColor = useColorModeValue(colors.LightBackground.hex, colors.DarkBackground.hex);
+  const {colorMode}=nativebase.useColorMode();
+  const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
+  const cardBackground = colorMode === 'light' ?  'Seasalt.hex': 'GunmetalLight.hex';  
 
   const [notifications, setNotifications] = useState([
     { id: '1', title: 'Battery Low', message: 'Your device battery is running low', timestamp: new Date().toLocaleString() },
@@ -21,9 +22,10 @@ const Notifications = ({ navigation }) => {
 
   const renderNotification = ({ item }) => (
     <nativebase.Box
-      bg="coolGray.100"
+      bg={cardBackground}
       p={4}
-      m={2}
+      mx={6}
+      my={2}
       rounded="md"
       shadow={2}
     >

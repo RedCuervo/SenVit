@@ -1,149 +1,93 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button, HStack, VStack, Image } from 'native-base';
-import { MaterialIcons } from '@expo/vector-icons'; // Para el ícono de la flecha atrás
 
-const ProfileScreen = ({ navigation, route }) => {
-  // Estado para almacenar los datos del perfil
-  const [profileData, setProfileData] = useState({
-    name: 'Juanita Perengana López',
-    age: '60',
-    city: 'Aguascalientes',
-    address: 'Santa Mónica 201',
-    bloodGlucose: '125 mg/dl',
-    bloodOxygenation: '97%',
-    heartRate: '70',
-    profileImage: require('../../assets/avatarImages/Avatar1.png'), // Uso de require para imagen local
-  });
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import * as nativebase from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useProfile } from '../context/ProfileContext'; // Add this import
 
-  // Actualizar los datos si se reciben cambios desde EditProfileScreen
-  useEffect(() => {
-    if (route.params?.updatedProfile) {
-      setProfileData(route.params.updatedProfile);
-    }
-  }, [route.params?.updatedProfile]);
+
+const ProfileScreen = () => {
+  const { colorMode } = nativebase.useColorMode();
+    const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
+  const { profileData, setProfileData } = useProfile(); // Add this hook
+  const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      {/* Header with back button */}
-      <HStack alignItems="center" style={styles.header}>
-        <Button 
-          style={styles.backButton} 
+    <nativebase.Box flex={1} bg={backgroundColor}
+    >
+      <nativebase.HStack
+        alignItems="center"
+        justifyContent="center"
+        h={100}
+        w="full"
+        position="relative"
+        safeArea
+        bg={backgroundColor}
+      >
+        <nativebase.Pressable
           onPress={() => navigation.goBack()}
-          variant="ghost"
+          position="absolute"
+          top="60px"
+          left={5}
+          w={10}
+          h={10}
+          justifyContent="center"
+          alignItems="center"
         >
-          <MaterialIcons name="arrow-back" size={24} color="black" />
-        </Button>
-        <Text style={styles.headerText}>Patient Information</Text>
-      </HStack>
-
+          <nativebase.ArrowBackIcon color="black" size="md" />
+        </nativebase.Pressable>
+        <nativebase.Box safeArea>
+          <nativebase.Text fontWeight="bold" fontSize="xl">Patient Information</nativebase.Text>
+        </nativebase.Box>
+      </nativebase.HStack>
+      
       {/* Profile Information */}
-      <VStack style={styles.profileSection} alignItems="center">
-        {/* Imagen de perfil: se usa nativebase.Image */}
-        <Image 
-          source={profileData.profileImage} // Aquí usamos el source modificado
+      <nativebase.Box 
+      safeAreaX="6"
+      safeAreaTop="4"
+      >
+      <nativebase.VStack bg="#e1f5fe" p={4} borderRadius="lg" alignItems="center" mb={4}>
+        <nativebase.Image
+          source={profileData.profileImage}
           alt="Profile Image"
-          style={styles.profileImage} 
+          style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 10 }}
         />
-        <Text style={styles.name}>{profileData.name}</Text>
-        <Text style={styles.status}>Status: Active</Text>
-        <Text style={styles.hospital}>Associated hospital: UMF 5</Text>
-      </VStack>
+        <nativebase.Text fontSize="md" fontWeight="bold" color="#333">{profileData.name}</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666">Status: Active</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666">Associated hospital: UMF 5</nativebase.Text>
+      </nativebase.VStack>
 
       {/* Personal Data */}
-      <VStack style={styles.dataSection}>
-        <Text style={styles.sectionTitle}>Personal data:</Text>
-        <Text style={styles.dataItem}>Age: {profileData.age} years</Text>
-        <Text style={styles.dataItem}>City: {profileData.city}</Text>
-        <Text style={styles.dataItem}>Address: {profileData.address}</Text>
-        <Button 
-          style={styles.editButton}
-          onPress={() => navigation.navigate('EditProfileScreen', { profileData, setProfileData })}
+      <nativebase.VStack mb={4}>
+        <nativebase.Text fontSize="md" fontWeight="bold" color="#333" mb={2}>Personal data:</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Age: {profileData.age} years</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>City: {profileData.city}</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Address: {profileData.address}</nativebase.Text>
+        <nativebase.Button
+          mt={2}
+          bg="#4CAF50"
+          width="50%"
+          alignSelf="center"
+          onPress={() => navigation.navigate('EditProfile', {
+            onSave: (updatedData) => {
+              setProfileData(updatedData); // Use the context setter
+            }
+          })}
         >
           Edit
-        </Button>
-      </VStack>
+        </nativebase.Button>
+      </nativebase.VStack>
 
       {/* Last Measurements */}
-      <VStack style={styles.dataSection}>
-        <Text style={styles.sectionTitle}>Last measurements:</Text>
-        <Text style={styles.dataItem}>Blood glucose: {profileData.bloodGlucose}</Text>
-        <Text style={styles.dataItem}>Blood oxygenation: {profileData.bloodOxygenation}</Text>
-        <Text style={styles.dataItem}>Heart rate: {profileData.heartRate}</Text>
-      </VStack>
-    </View>
+      <nativebase.VStack mb={4}>
+        <nativebase.Text fontSize="md" fontWeight="bold" color="#333" mb={2}>Last measurements:</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Blood glucose: {profileData.bloodGlucose}</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Blood oxygenation: {profileData.bloodOxygenation}</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Heart rate: {profileData.heartRate}</nativebase.Text>
+      </nativebase.VStack>
+      </nativebase.Box>
+    </nativebase.Box>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-  },
-  header: {
-    paddingTop: 40,
-    paddingBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profileSection: {
-    backgroundColor: '#e1f5fe',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  status: {
-    fontSize: 14,
-    color: '#666',
-  },
-  hospital: {
-    fontSize: 14,
-    color: '#666',
-  },
-  dataSection: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
-  },
-  dataItem: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 5,
-  },
-  editButton: {
-    marginTop: 10,
-    backgroundColor: '#4CAF50',
-    width: '50%',
-    alignSelf: 'center',
-  },
-});
 
 export default ProfileScreen;

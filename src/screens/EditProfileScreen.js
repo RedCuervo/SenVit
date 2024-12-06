@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Image, TouchableOpacity } from 'react-native';
-import { HStack } from 'native-base';
-import { MaterialIcons } from '@expo/vector-icons'; // Para el ícono de la flecha atrás
 
-const EditProfileScreen = ({ navigation, route }) => {
-  const [name, setName] = useState(route.params.profileData.name);
-  const [age, setAge] = useState(route.params.profileData.age);
-  const [city, setCity] = useState(route.params.profileData.city);
-  const [address, setAddress] = useState(route.params.profileData.address);
-  const [bloodGlucose, setBloodGlucose] = useState(route.params.profileData.bloodGlucose);
-  const [bloodOxygenation, setBloodOxygenation] = useState(route.params.profileData.bloodOxygenation);
-  const [heartRate, setHeartRate] = useState(route.params.profileData.heartRate);
-  const [profileImage, setProfileImage] = useState(route.params.profileData.profileImage); // Manejar la imagen de perfil
+import { BackHandler } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import * as nativebase from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useProfile } from '../context/ProfileContext'; // Add this import
+
+const EditProfileScreen = () => {
+  
+  const navigation = useNavigation();
+  const { profileData, setProfileData } = useProfile(); // Add the hook
+  
+  // Initialize state with values from context
+  const [name, setName] = useState(profileData.name);
+  const [age, setAge] = useState(profileData.age);
+  const [city, setCity] = useState(profileData.city);
+  const [address, setAddress] = useState(profileData.address);
+  const [bloodGlucose, setBloodGlucose] = useState(profileData.bloodGlucose);
+  const [bloodOxygenation, setBloodOxygenation] = useState(profileData.bloodOxygenation);
+  const [heartRate, setHeartRate] = useState(profileData.heartRate);
+  const [profileImage, setProfileImage] = useState(profileData.profileImage);
 
   const handleSave = () => {
     if (!name || !age || !city || !address || !bloodGlucose || !bloodOxygenation || !heartRate) {
@@ -27,145 +35,138 @@ const EditProfileScreen = ({ navigation, route }) => {
       bloodGlucose,
       bloodOxygenation,
       heartRate,
-      profileImage, // Asegúrate de incluir la imagen al actualizar el perfil
+      profileImage,
     };
 
-    // Se pasa el perfil actualizado de vuelta a ProfileScreen
-    route.params.setProfileData(updatedProfile);
-    navigation.goBack();  // Regresa a la pantalla de perfil
+    // Update the context instead of using route params
+    setProfileData(updatedProfile);
+    navigation.goBack();
   };
-
+  const { colorMode } = nativebase.useColorMode();
+  const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
   return (
-    <View style={styles.container}>
+    <nativebase.Box flex={1} bg={backgroundColor}>
       {/* Header with back button */}
-      <HStack alignItems="center" style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Edit Profile</Text>
-      </HStack>
+      <nativebase.HStack
+                alignItems="center"
+                justifyContent="center"
+                h={100}
+                w="full"
+                position="relative"
+                safeArea
+                bg={backgroundColor}
+            >
+                <nativebase.Pressable
+                    onPress={() => navigation.goBack()}
+                    position="absolute"
+                    top="60px"
+                    left={5}
+                    w={10}
+                    h={10}
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <nativebase.ArrowBackIcon color="black" size="md" />
+                </nativebase.Pressable>
+                <nativebase.Box safeArea>
+                    <nativebase.Text fontWeight="bold" fontSize="xl">Personal Data:</nativebase.Text>
+                </nativebase.Box>
+            </nativebase.HStack>
 
       {/* Profile Information */}
-      <View style={styles.profileSection}>
-        {/* Imagen de perfil: se usa Image de NativeBase con require */}
-        <Image 
-          source={profileImage ? profileImage : require('../../assets/avatarImages/Avatar1.png')} // Si no hay imagen, usamos una predeterminada
-          style={styles.profileImage} 
+      <nativebase.Box
+      safeAreaX="6"
+      safeAreaTop="4"
+      >
+      <nativebase.VStack bg="#e1f5fe" p={4} borderRadius="lg" alignItems="center" mb={4}>
+        <nativebase.Image
+          source={profileImage ? profileImage : require('../../assets/avatarImages/Avatar1.png')}
+          alt="Profile Image"
+          style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 10 }}
         />
-        <TextInput 
-          style={styles.input}
+        <nativebase.Input
+          variant="outline"
+          placeholder="Enter name"
           value={name}
           onChangeText={setName}
-          placeholder="Enter name"
+          w="80%"
+          mb={2}
+          color={"black"}
         />
-      </View>
+      </nativebase.VStack>
 
       {/* Personal Data */}
-      <View style={styles.dataSection}>
-        <Text style={styles.sectionTitle}>Personal data:</Text>
-        <TextInput 
-          style={styles.input}
+      <nativebase.VStack mb={4}>
+        <nativebase.Text fontSize="md" fontWeight="bold" mb={2}>Personal data:</nativebase.Text>
+        <nativebase.Input
+          variant="outline"
+          placeholder="Enter age"
           value={age}
           onChangeText={setAge}
           keyboardType="numeric"
-          placeholder="Enter age"
+          w="100%"
+          mb={2}
         />
-        <TextInput 
-          style={styles.input}
+        <nativebase.Input
+          variant="outline"
+          placeholder="Enter city"
           value={city}
           onChangeText={setCity}
-          placeholder="Enter city"
+          w="100%"
+          mb={2}
         />
-        <TextInput 
-          style={styles.input}
+        <nativebase.Input
+          variant="outline"
+          placeholder="Enter address"
           value={address}
           onChangeText={setAddress}
-          placeholder="Enter address"
+          w="100%"
+          mb={2}
         />
-      </View>
+      </nativebase.VStack>
 
       {/* Last Measurements */}
-      <View style={styles.dataSection}>
-        <Text style={styles.sectionTitle}>Last measurements:</Text>
-        <TextInput 
-          style={styles.input}
+      <nativebase.VStack mb={4}>
+        <nativebase.Text fontSize="md" fontWeight="bold"  mb={2}>Last measurements:</nativebase.Text>
+        <nativebase.Input
+          variant="outline"
+          placeholder="Enter blood glucose"
           value={bloodGlucose}
           onChangeText={setBloodGlucose}
-          placeholder="Enter blood glucose"
+          w="100%"
+          mb={2}
         />
-        <TextInput 
-          style={styles.input}
+        <nativebase.Input
+          variant="outline"
+          placeholder="Enter blood oxygenation"
           value={bloodOxygenation}
           onChangeText={setBloodOxygenation}
-          placeholder="Enter blood oxygenation"
+          w="100%"
+          mb={2}
         />
-        <TextInput 
-          style={styles.input}
+        <nativebase.Input
+          variant="outline"
+          placeholder="Enter heart rate"
           value={heartRate}
           onChangeText={setHeartRate}
           keyboardType="numeric"
-          placeholder="Enter heart rate"
+          w="100%"
+          mb={2}
         />
-      </View>
+      </nativebase.VStack>
 
       {/* Save Button */}
-      <Button 
-        title="Save"
+      <nativebase.Button
+        mt={2}
+        bg="#4CAF50"
+        width="50%"
+        alignSelf="center"
         onPress={handleSave}
-        color="#4CAF50"
-      />
-    </View>
+      >
+        Save
+      </nativebase.Button>
+      </nativebase.Box>
+    </nativebase.Box>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-  },
-  header: {
-    paddingTop: 40,
-    paddingBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  profileSection: {
-    backgroundColor: '#e1f5fe',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
-  },
-  input: {
-    width: '80%',
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 10,
-    paddingLeft: 10,
-  },
-  dataSection: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
-  },
-});
-
 export default EditProfileScreen;
