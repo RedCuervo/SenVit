@@ -2,6 +2,8 @@ import React from "react";
 import { Box, Center, Text, Pressable, useColorMode, useColorModeValue} from "native-base";
 import customTheme from "../theme/colors";
 const colors = customTheme.colors;
+
+
 function Connected ({ navigation }){
     const backgroundColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
     const textColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
@@ -32,7 +34,7 @@ function Connected ({ navigation }){
             Succesfully synchronization
         </Text>
         <Pressable
-        onPress={()=>navigation.navigate('HomeScreen1')}
+        onPress={()=>navigation.navigate('MainScreen')}
         m={10}
         ><Text textAlign={"center"} textDecorationLine={"underline"}>Go Home</Text></Pressable>
         </Box>

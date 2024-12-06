@@ -1,68 +1,91 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import * as nativeBase from 'native-base';
+import * as nativebase from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useProfile } from '../context/ProfileContext'; // Add this import
 
+
 const ProfileScreen = () => {
+  const { colorMode } = nativebase.useColorMode();
+    const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
   const { profileData, setProfileData } = useProfile(); // Add this hook
   const navigation = useNavigation();
 
   return (
-    <nativeBase.Box flex={1} bg="#fff" p={4}>
-      {/* Header with back button */}
-      <nativeBase.HStack alignItems="center" space={4} pb={4}>
-        <nativeBase.IconButton
-          icon={<MaterialIcons name="arrow-back" size={24} color="black" />}
+    <nativebase.Box flex={1} bg={backgroundColor}
+    >
+      <nativebase.HStack
+        alignItems="center"
+        justifyContent="center"
+        h={100}
+        w="full"
+        position="relative"
+        safeArea
+        bg={backgroundColor}
+      >
+        <nativebase.Pressable
           onPress={() => navigation.goBack()}
-          variant="ghost"
-        />
-        <nativeBase.Text fontSize="lg" fontWeight="bold">
-          Patient Information
-        </nativeBase.Text>
-      </nativeBase.HStack>
-
+          position="absolute"
+          top="60px"
+          left={5}
+          w={10}
+          h={10}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <nativebase.ArrowBackIcon color="black" size="md" />
+        </nativebase.Pressable>
+        <nativebase.Box safeArea>
+          <nativebase.Text fontWeight="bold" fontSize="xl">Patient Information</nativebase.Text>
+        </nativebase.Box>
+      </nativebase.HStack>
+      
       {/* Profile Information */}
-      <nativeBase.VStack bg="#e1f5fe" p={4} borderRadius="lg" alignItems="center" mb={4}>
-        <nativeBase.Image
+      <nativebase.Box 
+      safeAreaX="6"
+      safeAreaTop="4"
+      >
+      <nativebase.VStack bg="#e1f5fe" p={4} borderRadius="lg" alignItems="center" mb={4}>
+        <nativebase.Image
           source={profileData.profileImage}
           alt="Profile Image"
           style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 10 }}
         />
-        <nativeBase.Text fontSize="md" fontWeight="bold" color="#333">{profileData.name}</nativeBase.Text>
-        <nativeBase.Text fontSize="sm" color="#666">Status: Active</nativeBase.Text>
-        <nativeBase.Text fontSize="sm" color="#666">Associated hospital: UMF 5</nativeBase.Text>
-      </nativeBase.VStack>
+        <nativebase.Text fontSize="md" fontWeight="bold" color="#333">{profileData.name}</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666">Status: Active</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666">Associated hospital: UMF 5</nativebase.Text>
+      </nativebase.VStack>
 
       {/* Personal Data */}
-      <nativeBase.VStack mb={4}>
-        <nativeBase.Text fontSize="md" fontWeight="bold" color="#333" mb={2}>Personal data:</nativeBase.Text>
-        <nativeBase.Text fontSize="sm" color="#666" mb={1}>Age: {profileData.age} years</nativeBase.Text>
-        <nativeBase.Text fontSize="sm" color="#666" mb={1}>City: {profileData.city}</nativeBase.Text>
-        <nativeBase.Text fontSize="sm" color="#666" mb={1}>Address: {profileData.address}</nativeBase.Text>
-        <nativeBase.Button 
+      <nativebase.VStack mb={4}>
+        <nativebase.Text fontSize="md" fontWeight="bold" color="#333" mb={2}>Personal data:</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Age: {profileData.age} years</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>City: {profileData.city}</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Address: {profileData.address}</nativebase.Text>
+        <nativebase.Button
           mt={2}
           bg="#4CAF50"
           width="50%"
           alignSelf="center"
-          onPress={() => navigation.navigate('EditProfileScreen', { 
+          onPress={() => navigation.navigate('EditProfile', {
             onSave: (updatedData) => {
               setProfileData(updatedData); // Use the context setter
             }
           })}
         >
           Edit
-        </nativeBase.Button>
-      </nativeBase.VStack>
+        </nativebase.Button>
+      </nativebase.VStack>
 
       {/* Last Measurements */}
-      <nativeBase.VStack mb={4}>
-        <nativeBase.Text fontSize="md" fontWeight="bold" color="#333" mb={2}>Last measurements:</nativeBase.Text>
-        <nativeBase.Text fontSize="sm" color="#666" mb={1}>Blood glucose: {profileData.bloodGlucose}</nativeBase.Text>
-        <nativeBase.Text fontSize="sm" color="#666" mb={1}>Blood oxygenation: {profileData.bloodOxygenation}</nativeBase.Text>
-        <nativeBase.Text fontSize="sm" color="#666" mb={1}>Heart rate: {profileData.heartRate}</nativeBase.Text>
-      </nativeBase.VStack>
-    </nativeBase.Box>
+      <nativebase.VStack mb={4}>
+        <nativebase.Text fontSize="md" fontWeight="bold" color="#333" mb={2}>Last measurements:</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Blood glucose: {profileData.bloodGlucose}</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Blood oxygenation: {profileData.bloodOxygenation}</nativebase.Text>
+        <nativebase.Text fontSize="sm" color="#666" mb={1}>Heart rate: {profileData.heartRate}</nativebase.Text>
+      </nativebase.VStack>
+      </nativebase.Box>
+    </nativebase.Box>
   );
 };
 

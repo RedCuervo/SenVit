@@ -20,8 +20,9 @@ import Notifications from './src/screens/Notifications';
 import HelpScreen from './src/screens/HelpScreen';
 import HistoryScreen from './src/screens/History';
 import ExitScreen from './src/screens/Exit';
+import ProfileScreen from './src/screens/ProfileScreen';
+import EditProfileScreen from './src/screens/EditProfileScreen';
 import { ProfileProvider } from './src/context/ProfileContext';
-
 const Stack = createStackNavigator();
 
 const colors=customTheme.colors;
@@ -42,7 +43,7 @@ const App = () => {
           <Stack.Screen name="ConnectionScreen" component={ConnectionScreen} options={{headerShown: false}}/>
           <Stack.Screen name="MoreScreen" component={MoreScreen} options={{headerShown: false}}/>
           <Stack.Screen name="EmergencyContacts" component={EmergencyContacts} options={{headerShown: false}}/>
-          <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
           <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>
           <Stack.Screen name="About" component={About} options={{headerShown: false}}/>
@@ -51,7 +52,7 @@ const App = () => {
           <Stack.Screen name="Notifications" component={Notifications} options={{headerShown: false}}/>
           <Stack.Screen name="Help" component={HelpScreen} options={{headerShown: false}}/>
           <Stack.Screen name="History" component={HistoryScreen} options={{headerShown: false}}/>
-          <Stack.Screen name="Exit" component={ExitScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="MainScreen" component={ExitScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
         </VStack>
       </NavigationContainer>

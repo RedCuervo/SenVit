@@ -1,76 +1,76 @@
 import React, { useState } from 'react';
 import { BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as NativeBase from 'native-base';
+import * as nativebase from 'native-base';
+import HeaderMain from '../modules/HeaderMain';
 
 const ExitScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
-
+  const { colorMode } = nativebase.useColorMode();
+  const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
+  const cardBackground = colorMode === 'light' ?  'Seasalt.hex': 'GunmetalLight.hex'; 
   const handleExit = () => {
     BackHandler.exitApp();
   };
 
   return (
-    <NativeBase.Box flex={1} bg="#f5f5f5">
+    <nativebase.Box flex={1} bg={backgroundColor}>
       {/* Header */}
-      <NativeBase.HStack bg="#fff" p={4} alignItems="center">
-        <NativeBase.IconButton
-          icon={<NativeBase.Icon as={NativeBase.MaterialIcons} name="arrow-back" size="md" color="#007bff" />}
-          onPress={() => navigation.navigate('MoreScreen')}
-        />
-        <NativeBase.Text fontSize="lg" fontWeight="bold">
-          Welcome John Doe
-        </NativeBase.Text>
-      </NativeBase.HStack>
+      <HeaderMain navigation={navigation}/>
 
       {/* Main Content */}
-      <NativeBase.VStack flex={1} p={4} space={3}>
-        <NativeBase.Box bg="#fff" p={4} borderRadius="lg" alignItems="center">
-          <NativeBase.Text fontSize="md" fontWeight="bold">120 SYS</NativeBase.Text>
-          <NativeBase.Text fontSize="md" fontWeight="bold">80 DIA</NativeBase.Text>
-          <NativeBase.Text fontSize="md" fontWeight="bold">20 Pulse</NativeBase.Text>
-        </NativeBase.Box>
-        <NativeBase.Box bg="#fff" p={4} borderRadius="lg" alignItems="center">
-          <NativeBase.Text fontSize="md" fontWeight="bold">%SpO2</NativeBase.Text>
-          <NativeBase.Text fontSize="lg" color="#555">96</NativeBase.Text>
-          <NativeBase.Text fontSize="md" fontWeight="bold">BPM</NativeBase.Text>
-          <NativeBase.Text fontSize="lg" color="#555">86</NativeBase.Text>
-        </NativeBase.Box>
-        <NativeBase.Box bg="#fff" p={4} borderRadius="lg" alignItems="center">
-          <NativeBase.Text fontSize="md" fontWeight="bold">106 mg/dL</NativeBase.Text>
-        </NativeBase.Box>
-      </NativeBase.VStack>
+      <nativebase.VStack flex={1} p={4} space={3}>
+        <nativebase.Box bg={cardBackground} p={4} borderRadius="lg" alignItems="center">
+          <nativebase.Text fontSize="md" fontWeight="bold">120 SYS</nativebase.Text>
+          <nativebase.Text fontSize="md" fontWeight="bold">80 DIA</nativebase.Text>
+          <nativebase.Text fontSize="md" fontWeight="bold">20 Pulse</nativebase.Text>
+        </nativebase.Box>
+        <nativebase.Box bg={cardBackground} p={4} borderRadius="lg" alignItems="center">
+          <nativebase.Text fontSize="md" fontWeight="bold">%SpO2</nativebase.Text>
+          <nativebase.Text fontSize="lg" color="#555">96</nativebase.Text>
+          <nativebase.Text fontSize="md" fontWeight="bold">BPM</nativebase.Text>
+          <nativebase.Text fontSize="lg" color="#555">86</nativebase.Text>
+        </nativebase.Box>
+        <nativebase.Box bg={cardBackground} p={4} borderRadius="lg" alignItems="center">
+          <nativebase.Text fontSize="md" fontWeight="bold">106 mg/dL</nativebase.Text>
+        </nativebase.Box>
+      </nativebase.VStack>
 
       {/* Exit Modal */}
-      <NativeBase.Modal isOpen={modalVisible} onClose={() => setModalVisible(false)}>
-        <NativeBase.Modal.Content>
-          <NativeBase.Modal.CloseButton />
-          <NativeBase.Modal.Header>Confirm Exit</NativeBase.Modal.Header>
-          <NativeBase.Modal.Body>
-            <NativeBase.Text>Are you sure you want to exit the app?</NativeBase.Text>
-            <NativeBase.Text>The device will be unpaired</NativeBase.Text>
-          </NativeBase.Modal.Body>
-          <NativeBase.Modal.Footer>
-            <NativeBase.Button colorScheme="red" onPress={handleExit}>
+      <nativebase.Modal isOpen={modalVisible} onClose={() => setModalVisible(false)}>
+        <nativebase.Modal.Content>
+          <nativebase.Modal.CloseButton />
+          <nativebase.Modal.Header>Confirm Exit</nativebase.Modal.Header>
+          <nativebase.Modal.Body>
+            <nativebase.Text>Are you sure you want to exit the app?</nativebase.Text>
+            <nativebase.Text>The device will be unpaired</nativebase.Text>
+          </nativebase.Modal.Body>
+          <nativebase.Modal.Footer>
+            <nativebase.Button colorScheme="red" onPress={handleExit}>
               YES
-            </NativeBase.Button>
-            <NativeBase.Button onPress={() => setModalVisible(false)}>
+            </nativebase.Button>
+            <nativebase.Button onPress={() => setModalVisible(false)}>
               NO
-            </NativeBase.Button>
-          </NativeBase.Modal.Footer>
-        </NativeBase.Modal.Content>
-      </NativeBase.Modal>
+            </nativebase.Button>
+          </nativebase.Modal.Footer>
+        </nativebase.Modal.Content>
+      </nativebase.Modal>
 
       {/* Exit Button */}
-      <NativeBase.IconButton
-        icon={<NativeBase.Icon as={NativeBase.MaterialIcons} name="more-horiz" size="lg" color="#000" />}
-        position="absolute"
-        top={4}
-        right={4}
-        onPress={() => setModalVisible(true)}
-      />
-    </NativeBase.Box>
+      <nativebase.Pressable 
+      background={colorMode==='light'?'amber.200':'teal.800'}
+      w={"120px"}
+      borderRadius={"lg"}
+      alignSelf={"center"}
+      mb={10}
+      p={2}
+      borderWidth={0.5}
+      borderColor={colorMode==='light'?'amber.300':'teal.900'}
+      onPress={() => setModalVisible(true)}>
+        <nativebase.Text>Simulate Exit</nativebase.Text>
+      </nativebase.Pressable>
+    </nativebase.Box>
   );
 };
 

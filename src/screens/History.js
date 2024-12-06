@@ -5,19 +5,22 @@ const HistoryScreen = ({ navigation }) => {
     const { colorMode } = nativebase.useColorMode();
     const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
     const [displayedData, setDisplayedData] = useState([]);
-
+    const cardBackground = colorMode === 'light' ?  'Seasalt.hex': 'GunmetalLight.hex'; 
+    const textColor = colorMode === 'light' ? 'muted.500':'light.200';
     const renderHistoryItem = ({ item }) => (
         <nativebase.Box
+            
             key={`${item.id}-${item.timestamp}`}
-            bg="coolGray.100"
+            bg={cardBackground}
             p={4}
             m={2}
             rounded="md"
             shadow={2}
+            
         >
             <nativebase.VStack space={2}>
-                <nativebase.Text fontSize="md" color="coolGray.500">{item.timestamp}</nativebase.Text>
-                <nativebase.Text>{item.message}</nativebase.Text>
+                <nativebase.Text fontSize="md" color={textColor}>{item.timestamp}</nativebase.Text>
+                <nativebase.Text color={textColor}>{item.message}</nativebase.Text>
             </nativebase.VStack>
         </nativebase.Box>
     )
@@ -78,7 +81,9 @@ const HistoryScreen = ({ navigation }) => {
                     <nativebase.Text fontWeight="bold" fontSize="xl">History</nativebase.Text>
                 </nativebase.Box>
             </nativebase.HStack>
-            <nativebase.VStack>
+            <nativebase.VStack
+            safeAreaX="5"
+            >
                     <nativebase.FlatList
                         data={displayedData}
                         renderItem={renderHistoryItem}

@@ -17,6 +17,7 @@ const handlePress=async (url)=>{
 const HelpScreen = ({navigation}) => {
     const { colorMode } = nativebase.useColorMode();
     const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
+    const iconColor = colorMode === 'light' ? 'black' : 'white';
     return (
         <nativebase.Box flex={1} bg={backgroundColor} m={0}>
             <nativebase.HStack
@@ -79,7 +80,7 @@ const HelpScreen = ({navigation}) => {
                             <Ionicons
                                 name="mail"
                                 size={24}
-                                color="black"
+                                color={iconColor}
                             />
                             <nativebase.Text flex={1}>sael_agua@hotmail.com</nativebase.Text>
                         </nativebase.HStack>
@@ -100,7 +101,7 @@ const HelpScreen = ({navigation}) => {
                             <Ionicons
                                 name="logo-facebook"
                                 size={24}
-                                color="black"
+                                color={iconColor}
                             />
                             <nativebase.Text flex={1}>SenVit Official</nativebase.Text>
                         </nativebase.HStack>
@@ -119,7 +120,7 @@ const HelpScreen = ({navigation}) => {
                             <Ionicons
                                 name="logo-whatsapp"
                                 size={24}
-                                color="black"
+                                color={iconColor}
                             />
                             <nativebase.Text flex={1}>WhatsApp Chat</nativebase.Text>
                         </nativebase.HStack>
@@ -138,7 +139,7 @@ const HelpScreen = ({navigation}) => {
                             <Ionicons
                                 name="person"
                                 size={24}
-                                color="black"
+                                color={iconColor}
                             />
                             <nativebase.Text flex={1}>+52 449 185 9107</nativebase.Text>
                         </nativebase.HStack>
