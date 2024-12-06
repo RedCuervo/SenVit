@@ -1,11 +1,18 @@
 import React from 'react';
 import * as nativebase from 'native-base';
-import CustomColors from '../theme/colors';
 
+import customTheme from '../theme/colors';
+
+
+const colors = customTheme.colors;
 const HomeScreenNoDevice = ({route,navigation})=>{
     const {username}=route.params;
+    const backgroundColor= nativebase.useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
+    const textColor= nativebase.useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
+    const {colorMode}=nativebase.useColorMode();
     return(
-        <nativebase.Box w={"100%"} flex={1} m={0} bg={"white"}>
+        <nativebase.Box w={"100%"} flex={1} m={0} bg={backgroundColor}>
+
             <nativebase.HStack
             alignItems="center"
             safeArea
@@ -14,25 +21,33 @@ const HomeScreenNoDevice = ({route,navigation})=>{
             w="full"
             position={"relative"}
             p={1}
-            borderWidth={1}
+
+            
+
             justifyContent={"space-around"}
             >
                 <nativebase.Pressable onPress={()=>navigation.goBack()}
                     position={"relative"}
                     >
-                    <nativebase.Avatar bg={CustomColors.GunmetalLight.hex} mr={1} source={require('../../assets/avatarImages/Avatar1.png')} color={"white"}>JD</nativebase.Avatar>
+
+                    <nativebase.Avatar bg={colorMode=== 'light'? 'GunmetalLight.hex':'LightBackground.hex'} mr={1} source={require('../../assets/avatarImages/Avatar1.png')} color={"white"}>JD</nativebase.Avatar>
                 </nativebase.Pressable>
                 <nativebase.Box
                 borderRadius={25}
-                borderColor={'muted.400'}
+                borderColor={colorMode=== 'light'? 'muted.400': 'Seasalt.hex'}
+
                 borderWidth={1}
                 maxW={"50%"}
                 flex={1}
                 alignItems={"center"}
                 p={2}
-                bg={"muted.100"}
+
+                bg={colorMode==='light'? 'Charcoal.hex':'Seasalt.hex'}
                 >
-                    <nativebase.Text fontWeight={"bold"}>Welcome {username}</nativebase.Text>
+                    <nativebase.Text fontWeight={"bold"}
+                    color={textColor}
+                    >Welcome {username}</nativebase.Text>
+
                 </nativebase.Box>
                 <nativebase.Pressable onPress={()=>navigation.navigate('MoreScreen')}
                     position={"relative"}
@@ -41,7 +56,9 @@ const HomeScreenNoDevice = ({route,navigation})=>{
                     justifyContent={"center"}
                     alignItems={"center"}
                     >
-                    <nativebase.ThreeDotsIcon color="black" size="md"/>
+
+                    <nativebase.ThreeDotsIcon color={colorMode==='light'? 'black':'White.hex'} size="md"/>
+
                 </nativebase.Pressable>
             </nativebase.HStack>
             <nativebase.Center 
@@ -58,6 +75,9 @@ const HomeScreenNoDevice = ({route,navigation})=>{
                     alt="broken chain link"
                     size={"md"}
                     m={10}
+
+                    tintColor={colorMode==='light'? 'Charcoal.hex':'Seasalt.hex'}
+
                     />
                     <nativebase.Text fontSize={"sm"}>It seems you don't have a device connected</nativebase.Text>
                     </nativebase.Box>
@@ -66,7 +86,9 @@ const HomeScreenNoDevice = ({route,navigation})=>{
                         <nativebase.Pressable
                         onPress={()=>navigation.navigate('ConnectionScreen')}
                         p={5}
-                        background={CustomColors.Charcoal.hex}
+
+                        background={colorMode==='light'? 'Charcoal.hex':'Seasalt.hex'}
+
                         borderRadius={65}
                         m={5}
                         >
@@ -74,7 +96,9 @@ const HomeScreenNoDevice = ({route,navigation})=>{
                             source={require('../../assets/images/plug-connection.png')}
                             alt='connect'
                             size={"md"}
-                            tintColor={CustomColors.Seasalt.hex}
+
+                            tintColor={colorMode=== 'light'? 'White.hex':'black'}
+
                             />
                         </nativebase.Pressable>
                         <nativebase.Text>Connect Now!!</nativebase.Text>

@@ -1,11 +1,15 @@
 import React from "react";
-import { Box, Center, Text, Pressable } from "native-base";
-
+import { Box, Center, Text, Pressable, useColorMode, useColorModeValue} from "native-base";
+import customTheme from "../theme/colors";
+const colors = customTheme.colors;
 function Connected ({ navigation }){
+    const backgroundColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
+    const textColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
+    const {colorMode}=useColorMode();
     return(
-        <Center w="100%" flex={1} m={0} bg="white"flexDir={"column"}>
+        <Center w="100%" flex={1} m={0} bg={colorMode=='light'? 'LightBackground.hex':'DarkBackground.hex'}flexDir={"column"}>
         <Box
-        bg={"muted.50"}
+        bg={colorMode=='light'? 'White.hex':'Charcoal.hex'}
         px={4}
         py={10}
         safeArea w={"80%"}
