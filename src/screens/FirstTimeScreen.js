@@ -1,12 +1,14 @@
 import React from 'react';
 import {Button, VStack, Text,Box,Center,Pressable, useTheme,Image} from 'native-base'
-import CustomColors from '../theme/colors';
+import customTheme from '../theme/colors';
 
 
-const buttnColor= CustomColors.GunmetalLight.hex;
 
+const CustomColors = customTheme.colors;
 const FirstScreen = ({navigation})=>
 {
+    
+    const buttnColor= customTheme.colors.GunmetalLight.hex;
     return(
         
         <Center w="100%" flex={1} m={0} borderWidth={1} bg={"white"}>

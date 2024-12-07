@@ -17,6 +17,7 @@
       "bundleIdentifier": "com.ligolegen.senvit" 
     },
     "android": {
+      "permissions": ["android.permission.CALL_PHONE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

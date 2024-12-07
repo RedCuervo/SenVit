@@ -1,17 +1,21 @@
 import React from "react";
-import { Center, Box, VStack, Text, Pressable } from "native-base";
-import CustomColors from "../theme/colors";
+import { Center, Box, VStack, Text, Pressable, useColorMode, useColorModeValue } from "native-base";
+import customTheme from "../theme/colors";
 
+const colors = customTheme.colors;
 function Disconnected({ setIsConnected }) {
-
+    const backgroundColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
+    const textColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
+    const {colorMode}=useColorMode();
+    
     const handleSync = () => {
         setIsConnected(true);
     }
 
     return (
-        <Center w="100%" flex={1} m={0} bg="white">
+        <Center w="100%" flex={1} m={0} bg={colorMode=='light'? 'LightBackground.hex':'DarkBackground.hex'}>
             <Box
-                bg={"muted.50"}
+                bg={colorMode=='light'? 'White.hex':'Charcoal.hex'}
                 px={4}
                 py={10}
                 safeArea w={"80%"}
@@ -39,13 +43,13 @@ function Disconnected({ setIsConnected }) {
                     mt={20}
                     h={100}
                     mb={10}
-                    bg={CustomColors.Charcoal.hex}
+                    bg={colorMode==='light'?'Charcoal.hex':'Seasalt.hex'}
                     borderRadius={50}
                     w={100}
                     alignSelf={"center"}
                     justifyContent={"center"}
                     onPress={() => handleSync()}
-                ><Text textAlign={"center"} color={CustomColors.White.hex}>Synchronize Now</Text></Pressable>
+                ><Text textAlign={"center"} color={colorMode==='light'?'White.hex':'Charcoal.hex'}>Synchronize Now</Text></Pressable>
             </Box>
         </Center>
     );
