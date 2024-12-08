@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { VStack, Box, Input, Button, Text, Divider, Center, Checkbox, Pressable, Icon, HStack } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 import { auth } from '../../firebase'; // Configuración de Firebase
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithCredential } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithCredential, sendEmailVerification } from "firebase/auth";
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import { useAuth } from '../context/AuthContext'; // Importa el contexto de autenticación

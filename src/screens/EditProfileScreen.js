@@ -5,11 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import * as nativebase from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useProfile } from '../context/ProfileContext'; // Add this import
+import HeaderTitle from '../modules/HeaderTitle';
 
 const EditProfileScreen = () => {
   
   const navigation = useNavigation();
-  const { profileData, setProfileData } = useProfile(); // Add the hook
+  const { profileData, updateProfile } = useProfile(); // Add the hook
   
   // Initialize state with values from context
   const [name, setName] = useState(profileData.name);
@@ -21,7 +22,7 @@ const EditProfileScreen = () => {
   const [heartRate, setHeartRate] = useState(profileData.heartRate);
   const [profileImage, setProfileImage] = useState(profileData.profileImage);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name || !age || !city || !address || !bloodGlucose || !bloodOxygenation || !heartRate) {
       alert("Please fill in all fields.");
       return;
@@ -39,39 +40,23 @@ const EditProfileScreen = () => {
     };
 
     // Update the context instead of using route params
-    setProfileData(updatedProfile);
+    try {
+      await updateProfile(updatedProfile);
+      navigation.goBack();
+    } catch (error) {
+      alert("Error updating profile. Please try again.");
+      console.error(error);
+    }
     navigation.goBack();
   };
   const { colorMode } = nativebase.useColorMode();
   const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
   return (
     <nativebase.Box flex={1} bg={backgroundColor}>
-      {/* Header with back button */}
-      <nativebase.HStack
-                alignItems="center"
-                justifyContent="center"
-                h={100}
-                w="full"
-                position="relative"
-                safeArea
-                bg={backgroundColor}
-            >
-                <nativebase.Pressable
-                    onPress={() => navigation.goBack()}
-                    position="absolute"
-                    top="60px"
-                    left={5}
-                    w={10}
-                    h={10}
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <nativebase.ArrowBackIcon color="black" size="md" />
-                </nativebase.Pressable>
-                <nativebase.Box safeArea>
-                    <nativebase.Text fontWeight="bold" fontSize="xl">Personal Data:</nativebase.Text>
-                </nativebase.Box>
-            </nativebase.HStack>
+      <HeaderTitle
+      title="Personal Data:"
+      navigation={navigation}
+      />
 
       {/* Profile Information */}
       <nativebase.Box

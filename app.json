@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "center",
@@ -14,10 +13,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ligolegen.senvit" 
+      "bundleIdentifier": "com.yourcompany.senvit"
     },
     "android": {
-      "permissions": ["android.permission.CALL_PHONE"],
+      "permissions": ["android.permission.RECEIVE_SMS", "android.permission.READ_SMS"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

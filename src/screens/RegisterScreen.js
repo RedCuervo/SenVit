@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { VStack, Box, Input, Button, Text, Divider, Center, Checkbox, Pressable, Icon, HStack } from 'native-base';
+import { VStack, Box, Input, Button, Text, Divider, Center, Checkbox, Pressable, Icon, HStack, Modal } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 import { auth } from '../../firebase'; // Configuración de Firebase
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import { useAuth } from '../context/AuthContext'; // Importa el contexto de autenticación
+import TermsAndConditionsText from '../modules/TermsAndConditionsModule';
 
 WebBrowser.maybeCompleteAuthSession();
 
 const RegisterScreen = ({ navigation }) => {
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +19,9 @@ const RegisterScreen = ({ navigation }) => {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState('');
   const { setUser } = useAuth(); // Contexto de autenticación
+  const [showTerms, setShowTerms] = useState(false);
+
+  
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     clientId: '194740284635-b9qvidpnm8thj59hlmh940sa3cfviv2f.apps.googleusercontent.com',
@@ -38,7 +43,7 @@ const RegisterScreen = ({ navigation }) => {
         console.log('Google Sign-In successful:', userCredential.user);
 
         // Redirigir a la pantalla principal
-        navigation.navigate('HomeScreenNoDevice');
+        navigation.navigate('HomeScreen1');
       } else {
         console.log('Google Sign-In was canceled or failed');
       }
@@ -64,7 +69,10 @@ const RegisterScreen = ({ navigation }) => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       setUser(userCredential.user); // Actualiza el estado del usuario
       alert('User registered successfully!');
-      navigation.navigate('HomeScreenNoDevice'); // Redirigir a la pantalla principal
+      navigation.reset({
+        index:0,
+        routes:[{name:'HomeScreen1'}]
+    });
     } catch (err) {
       setError(err.message);
     }
@@ -91,19 +99,42 @@ const RegisterScreen = ({ navigation }) => {
           <Input placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" variant="outline" />
 
           <Checkbox
+            value="terms"
             isChecked={acceptedTerms}
             onChange={setAcceptedTerms}
             colorScheme="blue"
-            value="terms"
             accessibilityLabel="Accept terms and conditions"
           >
             <Text fontSize="xs" color="blue.500">
               I have read the{' '}
-              <Text color="blue.500" underline onPress={() => alert('Terms & Conditions')}>
+              <Text 
+                color="blue.500" 
+                underline 
+                onPress={() => setShowTerms(true)}
+              >
                 terms and conditions
               </Text>
             </Text>
           </Checkbox>
+
+          <Modal 
+            isOpen={showTerms} 
+            onClose={() => setShowTerms(false)}
+            size="90%"
+            alignSelf="center"
+            safeArea
+          >
+            <Modal.Content>
+              <Modal.CloseButton />
+              <Modal.Header>Terms and Conditions</Modal.Header>
+              <Modal.Body>
+                <TermsAndConditionsText />
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onPress={() => setShowTerms(false)}>Close</Button>
+              </Modal.Footer>
+            </Modal.Content>
+          </Modal>
 
           <Button onPress={handleRegister} colorScheme="blue" mt="2" isDisabled={!acceptedTerms}>
             SIGN UP

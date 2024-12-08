@@ -1,16 +1,16 @@
 // Importa los módulos necesarios de Firebase
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth} from "firebase/auth";
 
 // Configuración de Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyDmXIdr4bA7KAXCNoYduY0vgHnK2enZnnQ",
-  authDomain: "senvit-a4009.firebaseapp.com",
-  projectId: "senvit-a4009",
-  storageBucket: "senvit-a4009.firebasestorage.app",
-  messagingSenderId: "194740284635",
-  appId: "1:194740284635:web:50a36bc8d84cb1bd5730fe",
-  measurementId: "G-NDHBKXKKLT"
+  apiKey: "AIzaSyC1qhpF76v1FaVZojd2as0xOdzhpMQF1cU",
+  authDomain: "senvit-c4e83.firebaseapp.com",
+  projectId: "senvit-c4e83",
+  storageBucket: "senvit-c4e83.firebasestorage.app",
+  messagingSenderId: "176069402229",
+  appId: "1:176069402229:android:fb9a39295d23795644223c",
+  measurementId: "10029501789"
 };
 
 // Inicializa Firebase

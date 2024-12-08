@@ -13,12 +13,17 @@ const LoginScreen = ({ navigation }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('Logged in with:', userCredential.user.email);
-      navigation.navigate('HomeScreenNoDevice'); 
+      navigation.reset({
+        index:0,
+        routes:[{name:'HomeScreen1'}]
+    });
     } catch (err) {
       setError(err.message);
       console.error('Login error:', err);
     }
   };
+
+  
 
   return (
     <Center flex={1} bg="white" w="100%">

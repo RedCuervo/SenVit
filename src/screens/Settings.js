@@ -3,6 +3,7 @@ import * as nativebase from 'native-base';
 import CustomColors from '../theme/colors';
 import ToggleNightMode from '../theme/ToggleNightMode';
 import { useColorModeValue } from 'native-base';
+import HeaderTitle from '../modules/HeaderTitle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const colors = CustomColors.colors;
@@ -39,33 +40,10 @@ const Settings = ({ navigation }) => {
             flex={1}
             bg={backgroundColor}
         >
-            <nativebase.HStack
-                justifyContent="center"
-                alignItems="center"
-                h={100}
-                w="full"
-                position="relative"
-                safeArea
-                bg={backgroundColor}
-            >
-                <nativebase.Pressable
-                    onPress={() => navigation.goBack()}
-                    position="absolute"
-                    top="60px"
-                    left={5}
-                    w={10}
-                    h={10}
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <nativebase.ArrowBackIcon color="black" size="md" />
-                </nativebase.Pressable>
-                <nativebase.Box safeArea>
-                    <nativebase.Text fontWeight="bold" fontSize="xl">
-                        Settings
-                    </nativebase.Text>
-                </nativebase.Box>
-            </nativebase.HStack>
+            <HeaderTitle
+            title="Settings"
+            navigation={navigation}
+            />
             <nativebase.VStack
                 safeArea
                 space={5}

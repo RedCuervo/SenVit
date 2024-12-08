@@ -1,6 +1,6 @@
 import React from 'react';
 import * as nativebase from 'native-base';
-
+import HeaderTitle from '../modules/HeaderTitle';
 import customTheme from '../theme/colors';
 
 
@@ -64,31 +64,15 @@ const MoreScreen = ({navigation})=>{
         }
     ];
 
+
+    const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
+
     return(
-        <nativebase.Box w={"100%"} flex={1} m={0} bg={colorMode=='light'? 'LightBackground.hex':'DarkBackground.hex'}>
-            <nativebase.HStack
-            alignItems="center"
-            justifyContent="center"
-            h={100}
-            w="full"
-            position={"relative"}
-            p={1}
-            >
-                <nativebase.Pressable onPress={()=>navigation.goBack()}
-
-                    position={"absolute"}
-                    top={"60px"}
-                    left={5}
-                    zIndex={1}
-                    w={10}
-                    h={10}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    >
-                    <nativebase.ArrowBackIcon color="black" size="md"/>
-
-                </nativebase.Pressable>
-            </nativebase.HStack>
+        <nativebase.Box flex={1} bg={backgroundColor} m={0}>
+           <HeaderTitle
+            title=" "
+            navigation={navigation}
+            />
             <nativebase.VStack>
                 <nativebase.Box 
                     safeAreaTop="5"
@@ -99,7 +83,7 @@ const MoreScreen = ({navigation})=>{
                     <MenuItem 
                         text="Profile" 
                         fontSize="xl" 
-                        onPress={() => navigation.navigate('ProfileScreen')} 
+                        onPress={() => navigation.navigate('Profile')} 
                     />
                     <MenuItem 
                         text="Edit profile" 

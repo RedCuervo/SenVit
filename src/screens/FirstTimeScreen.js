@@ -9,6 +9,13 @@ const FirstScreen = ({navigation})=>
 {
     
     const buttnColor= customTheme.colors.GunmetalLight.hex;
+
+    {/*const handleGoHome=()=>{
+        navigation.reset({
+            index:0,
+            routes:[{name:'HomeScreen1'}]
+        });
+    }*/}
     return(
         
         <Center w="100%" flex={1} m={0} borderWidth={1} bg={"white"}>
@@ -17,12 +24,14 @@ const FirstScreen = ({navigation})=>
         <Box safeArea p="10" py="10" w="100%" maxW="290">
         <VStack space={2} alignItems={"center"}  m={0}>
         <Text fontSize={"xl"}>Get Started!</Text>
-        <Pressable bg={buttnColor} py={2} px={5}>
+        <Pressable bg={buttnColor} py={2} px={5}
+        onPress={()=>navigation.navigate('RegisterScreen')}
+        >
             <Text color={CustomColors.Seasalt.hex} fontSize={"lg"}>Sign Up!</Text>
         </Pressable>
         <Text color={"muted.500"} pt={5}>Already have an account?</Text>
         <Pressable py={2} px={2}
-        onPress={()=>navigation.navigate('HomeScreen1')}
+        onPress={()=>navigation.navigate('LoginScreen')}
         >
             <Text color={CustomColors.Charcoal.hex} fontSize={"md"} 
             textDecorationColor={"black"}

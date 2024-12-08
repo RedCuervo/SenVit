@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as nativebase from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import { Linking } from 'react-native';
-
+import HeaderTitle from '../modules/HeaderTitle';
 
 const handlePress=async (url)=>{
     const supported = await Linking.canOpenURL(url);
@@ -20,31 +20,10 @@ const HelpScreen = ({navigation}) => {
     const iconColor = colorMode === 'light' ? 'black' : 'white';
     return (
         <nativebase.Box flex={1} bg={backgroundColor} m={0}>
-            <nativebase.HStack
-                alignItems="center"
-                justifyContent="center"
-                h={100}
-                w="full"
-                position="relative"
-                safeArea
-                bg={backgroundColor}
-            >
-                <nativebase.Pressable
-                    onPress={() => navigation.goBack()}
-                    position="absolute"
-                    top="60px"
-                    left={5}
-                    w={10}
-                    h={10}
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <nativebase.ArrowBackIcon color="black" size="md" />
-                </nativebase.Pressable>
-                <nativebase.Box safeArea>
-                    <nativebase.Text fontWeight="bold" fontSize="xl">Help Center</nativebase.Text>
-                </nativebase.Box>
-            </nativebase.HStack>
+            <HeaderTitle
+            title="Help Center"
+            navigation={navigation}
+            />
 
             <nativebase.Divider
                     w={"70%"}

@@ -7,6 +7,7 @@ import { AuthProvider } from './src/context/AuthContext'; // Importa el AuthProv
 import { useState } from 'react';
 import { useColorModeValue } from 'native-base';
 
+
 // pantallas
 import HomeScreenNoDevice from './src/screens/HomeScreenNoDevice';
 import FirstTimeScreen from './src/screens/FirstTimeScreen';
@@ -15,7 +16,6 @@ import RegisterScreen from './src/screens/RegisterScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import MoreScreen from './src/screens/MoreScreen';
 import EmergencyContacts from './src/screens/EmergencyContacts';
-import ProfileScreen from './src/screens/ProfileScreen';
 import EditProfileScreen from './src/screens/EditProfileScreen';
 import Settings from './src/screens/Settings';
 import customTheme from './src/theme/colors';
@@ -27,7 +27,7 @@ import HelpScreen from './src/screens/HelpScreen';
 import HistoryScreen from './src/screens/History';
 import ExitScreen from './src/screens/Exit';
 import ProfileScreen from './src/screens/ProfileScreen';
-import EditProfileScreen from './src/screens/EditProfileScreen';
+
 import { ProfileProvider } from './src/context/ProfileContext';
 
 
@@ -46,7 +46,6 @@ const App = () => {
     <ProfileProvider>
       <View style={styles.container}>
         <NavigationContainer>
-          <VStack flex={1} bg={backgroundColor}>
             <Stack.Navigator
               initialRouteName="FirstScreen"
               screenOptions={{
@@ -70,7 +69,7 @@ const App = () => {
               <Stack.Screen name="History" component={HistoryScreen} />
               <Stack.Screen name="MainScreen" component={ExitScreen} />
             </Stack.Navigator>
-          </VStack>
+          
         </NavigationContainer>
       </View>
     </ProfileProvider>

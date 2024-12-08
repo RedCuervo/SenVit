@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
 import { BackHandler } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect} from '@react-navigation/native';
 import * as nativebase from 'native-base';
 import HeaderMain from '../modules/HeaderMain';
-
+ 
 const ExitScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
   const { colorMode } = nativebase.useColorMode();
   const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
   const cardBackground = colorMode === 'light' ?  'Seasalt.hex': 'GunmetalLight.hex'; 
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        setModalVisible(true);
+        return true; // Prevents default back action
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [])
+  );
+
+  
   const handleExit = () => {
     BackHandler.exitApp();
   };
@@ -57,19 +72,7 @@ const ExitScreen = () => {
         </nativebase.Modal.Content>
       </nativebase.Modal>
 
-      {/* Exit Button */}
-      <nativebase.Pressable 
-      background={colorMode==='light'?'amber.200':'teal.800'}
-      w={"120px"}
-      borderRadius={"lg"}
-      alignSelf={"center"}
-      mb={10}
-      p={2}
-      borderWidth={0.5}
-      borderColor={colorMode==='light'?'amber.300':'teal.900'}
-      onPress={() => setModalVisible(true)}>
-        <nativebase.Text>Simulate Exit</nativebase.Text>
-      </nativebase.Pressable>
+      
     </nativebase.Box>
   );
 };
