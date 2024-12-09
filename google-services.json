@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "194740284635",
-    "project_id": "senvit-a4009",
-    "storage_bucket": "senvit-a4009.firebasestorage.app"
+    "project_number": "176069402229",
+    "project_id": "senvit-c4e83",
+    "storage_bucket": "senvit-c4e83.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:194740284635:android:cc340d782b97dfb15730fe",
+        "mobilesdk_app_id": "1:176069402229:android:fb9a39295d23795644223c",
         "android_client_info": {
-          "package_name": "com.ligolegen.senvit"
+          "package_name": "com.senvit.senvitality"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA9ua1oxIuqIXdx5amGihLpmaE5BIamwZ0"
+          "current_key": "AIzaSyC1qhpF76v1FaVZojd2as0xOdzhpMQF1cU"
         }
       ],
       "services": {
