@@ -4,6 +4,7 @@ import * as nativebase from 'native-base';
 import customTheme from '../theme/colors';
 import Communications from 'react-native-communications';
 import ContactForm from '../modules/ContactForm';
+import HeaderTitle from '../modules/HeaderTitle';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -50,33 +51,11 @@ const EmergencyContacts = ({ navigation }) => {
     return (
         <nativebase.Box w={"100%"} flex={1} m={0} bg={backgroundColor}>
 
-            {/*este stack es el boton de back y el titulo de la pantalla(opcional)*/}
-            <nativebase.HStack
-                alignItems="center"
-                justifyContent="center"
-                h={100}
-                w="full"
-                position={"relative"}
-                safeArea
-            >
-                <nativebase.Pressable
-                    onPress={() => navigation.goBack()}
-                    position={"absolute"}
-                    top={"60px"}
-                    left={5}
-                    w={10}
-                    h={10}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                >
-                    <nativebase.ArrowBackIcon color="black" size="md" />
-                </nativebase.Pressable>
-                <nativebase.Box
-                    safeArea
-                >
-                    <nativebase.Text fontWeight={"bold"} fontSize={"xl"}>Emergency Contacts</nativebase.Text>
-                </nativebase.Box>
-            </nativebase.HStack>
+           <HeaderTitle
+           title="Emergency Contacts"
+           navigation={navigation}
+           />
+           
             <nativebase.VStack>
                 <ContactSection>
                     {contacts.map((contact, index) => (

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import * as nativebase from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import CustomColors from '../theme/colors';
-import { useColorModeValue } from 'native-base';
+import HeaderTitle from '../modules/HeaderTitle';
 import {Ionicons} from '@expo/vector-icons';
 
 const Notifications = ({ navigation }) => {
@@ -69,31 +68,10 @@ const Notifications = ({ navigation }) => {
 
   return (
     <nativebase.Box flex={1} bg={backgroundColor}>
-      <nativebase.HStack
-        alignItems="center"
-        justifyContent="center"
-        h={100}
-        w="full"
-        position="relative"
-        safeArea
-        bg={backgroundColor}
-      >
-        <nativebase.Pressable
-          onPress={() => navigation.goBack()}
-          position="absolute"
-          top="60px"
-          left={5}
-          w={10}
-          h={10}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <nativebase.ArrowBackIcon color="black" size="md" />
-        </nativebase.Pressable>
-        <nativebase.Box safeArea>
-          <nativebase.Text fontWeight="bold" fontSize="xl">Notifications</nativebase.Text>
-        </nativebase.Box>
-      </nativebase.HStack>
+      <HeaderTitle
+      title="Notifications"
+      navigation={navigation}
+      />
 
       <SwipeListView
         data={notifications}

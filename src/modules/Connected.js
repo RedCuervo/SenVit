@@ -4,7 +4,15 @@ import customTheme from "../theme/colors";
 const colors = customTheme.colors;
 
 
+
+
 function Connected ({ navigation }){
+    const handleGoHome=()=>{
+        navigation.reset({
+            index:0,
+            routes:[{name:'MainScreen'}]
+        });
+    }
     const backgroundColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
     const textColor= useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
     const {colorMode}=useColorMode();
@@ -34,7 +42,7 @@ function Connected ({ navigation }){
             Succesfully synchronization
         </Text>
         <Pressable
-        onPress={()=>navigation.navigate('MainScreen')}
+        onPress={()=>handleGoHome()}
         m={10}
         ><Text textAlign={"center"} textDecorationLine={"underline"}>Go Home</Text></Pressable>
         </Box>

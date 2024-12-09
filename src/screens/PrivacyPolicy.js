@@ -1,38 +1,19 @@
 import React from 'react';
 import * as nativebase from 'native-base';
+import HeaderTitle from '../modules/HeaderTitle';
 
 const PrivacyPolicy = ({navigation}) => {
   const { colorMode } = nativebase.useColorMode();
   const backgroundColor = colorMode === 'light' ? 'LightBackground.hex' : 'DarkBackground.hex';
   return (
     <nativebase.Box w={"100%"} flex={1} m={0} bg={backgroundColor}>
-      <nativebase.HStack
-                alignItems="center"
-                justifyContent="center"
-                h={100}
-                w="full"
-                position="relative"
-                safeArea
-                bg={backgroundColor}
-            >
-                <nativebase.Pressable
-                    onPress={() => navigation.goBack()}
-                    position="absolute"
-                    top="60px"
-                    left={5}
-                    w={10}
-                    h={10}
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <nativebase.ArrowBackIcon color="black" size="md" />
-                </nativebase.Pressable>
-                <nativebase.Box safeArea>
-                    <nativebase.Text fontWeight="bold" fontSize="xl">PrivacyPolicy</nativebase.Text>
-                </nativebase.Box>
-            </nativebase.HStack>
+      <HeaderTitle
+      title="Privacy Policy"
+      navigation={navigation}
+      />
       <nativebase.ScrollView
-      m={6}
+      mx={6}
+      my={8}
       indicatorStyle='black'
       p={3}
       borderWidth={1}

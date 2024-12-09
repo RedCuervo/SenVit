@@ -1,21 +1,51 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { useAuth } from './AuthContext';
 
 export const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
+  const { user } = useAuth();
   const [profileData, setProfileData] = useState({
-    name: 'Juanita Perengana López',
-    age: '60',
-    city: 'Aguascalientes',
-    address: 'Santa Mónica 201',
-    bloodGlucose: '125 mg/dl',
-    bloodOxygenation: '97%',
-    heartRate: '70',
+    name: '',
+    age: '',
+    city: '',
+    address: '',
+    bloodGlucose: '128',
+    bloodOxygenation: '200',
+    heartRate: '70BPM',
     profileImage: require('../../assets/avatarImages/Avatar1.png'),
   });
 
+  useEffect(() => {
+    if (user) {
+      setProfileData(prev => ({
+        ...prev,
+        name: user.displayName || ''
+      }));
+    } else {
+      setProfileData({
+        name: '',
+        age: '',
+        city: '',
+        address: '',
+        bloodGlucose: '128',
+        bloodOxygenation: '200',
+        heartRate: '70BPM',
+        profileImage: require('../../assets/avatarImages/Avatar1.png'),
+      });
+    }
+  }, [user]);
+
+  // Simplified updateProfile function without auth check
+  const updateProfile = (newData) => {
+    setProfileData(prev => ({
+      ...prev,
+      ...newData
+    }));
+  };
+
   return (
-    <ProfileContext.Provider value={{ profileData, setProfileData }}>
+    <ProfileContext.Provider value={{ profileData, updateProfile }}>
       {children}
     </ProfileContext.Provider>
   );
