@@ -86,9 +86,9 @@ const ExitScreen = () => {
         </nativebase.Box>
         <nativebase.Box bg={cardBackground} p={4} borderRadius="lg" alignItems="center">
           <nativebase.Text fontSize="md" fontWeight="bold">%SpO2</nativebase.Text>
-          <nativebase.Text fontSize="lg" color="#555">{values['%SpO2']}</nativebase.Text>
+          <nativebase.Text fontSize="lg">{values['%SpO2']}</nativebase.Text>
           <nativebase.Text fontSize="md" fontWeight="bold">BPM</nativebase.Text>
-          <nativebase.Text fontSize="lg" color="#555">{values.BPM}</nativebase.Text>
+          <nativebase.Text fontSize="lg">{values.BPM}</nativebase.Text>
         </nativebase.Box>
         <nativebase.Box bg={cardBackground} p={4} borderRadius="lg" alignItems="center">
           <nativebase.Text fontSize="md" fontWeight="bold">{values['mg/dl']} mg/dL</nativebase.Text>

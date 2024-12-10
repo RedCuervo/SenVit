@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import * as nativebase from 'native-base';
-
+import { Linking } from 'react-native';
 import customTheme from '../theme/colors';
-import Communications from 'react-native-communications';
 import ContactForm from '../modules/ContactForm';
 import HeaderTitle from '../modules/HeaderTitle';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,18 +14,16 @@ const EmergencyContacts = ({ navigation }) => {
     const textColor= nativebase.useColorModeValue(colors.LightBackground.hex,colors.DarkBackground.hex);
     const {colorMode}=nativebase.useColorMode();
 
-    const createContact = (text, color, number, initials) => ({
-
+    const createContact = (text, number, initials) => ({
         imageUrl: require('../../assets/avatarImages/Avatar1.png'),
         text,
         Initials: initials,
         fontSize: 'md',
-
-        color:color,
-
+        color: colorMode === 'light' ? 'GunmetalLight.hex' : 'Charcoal.hex', // Use theme colors
         number,
         onPress: () => CallAlert(number, text)
     });
+    
 
     const [isOpen, setIsOpen] = React.useState(false);
     const cancelRef = React.useRef();
@@ -41,12 +38,25 @@ const EmergencyContacts = ({ navigation }) => {
         setContacts([...contacts, createContact(text, number, initials)]);
     };
     const handleCall = async (number) => {
-        Communications.phonecall(number, true);
+        const phoneUrl = `tel:${number}`;
+        try {
+            const supported = await Linking.canOpenURL(phoneUrl);
+            if (supported) {
+                await Linking.openURL(phoneUrl);
+            } else {
+                Alert.alert(`Device cannot handle phone calls`);
+            }
+        } catch (error) {
+            Alert.alert('Error making phone call');
+            console.error(error);
+        }
     };
 
+    
     const CallAlert = (number, name) => {
         setSelectedContact({ number, name });
         setIsOpen(true);
+        console.log('Calling', number);
     };
     return (
         <nativebase.Box w={"100%"} flex={1} m={0} bg={backgroundColor}>
@@ -113,7 +123,8 @@ const EmergencyContacts = ({ navigation }) => {
                                 colorScheme="danger"
                                 onPress={() => {
                                     handleCall(selectedContact?.number);
-                                    setIsOpen(false);
+                                    setIsOpen(false)
+                                    console.log('Calling', selectedContact?.number);
                                 }}
                             >
                                 Call
@@ -172,7 +183,7 @@ const ContactItem = ({ imageUrl, text, Initials, fontSize = "md", color, onPress
                 <Ionicons 
                     name="call"
                     size={24} // or use "md" if you prefer NativeBase sizing
-                    color={colorMode === 'light' ? 'muted.400 ': '#fafafa'}
+                    color={colorMode === 'light' ? 'muted.400': '#fafafa'}
                 />
             </nativebase.Pressable>
         </nativebase.HStack>

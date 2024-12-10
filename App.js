@@ -1,10 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AuthProvider } from './src/context/AuthContext'; // Importa el AuthProvider
-import { useState } from 'react';
+
 import { useColorModeValue } from 'native-base';
 
 
